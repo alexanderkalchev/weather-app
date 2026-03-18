@@ -1,4 +1,9 @@
 import imgSource from "../assets/icons/weather.svg";
+import cloudyIcon from "../assets/icons/cloudy.svg";
+import rainIcon from "../assets/icons/cloudy-rain.svg";
+import thunderIcon from "../assets/icons/thunder.svg";
+import windyIcon from "../assets/icons/windy.svg";
+import snowIcon from "../assets/icons/snowfall.svg";
 
 export default function getCurrentWeatherComponent(currentConditions){
     const divCurrentWeather = document.createElement("div");
@@ -13,7 +18,15 @@ export default function getCurrentWeatherComponent(currentConditions){
 
     divCurrentWeather.classList.add("current-weather");
     divMainData.classList.add("main-data");
-    img.src = imgSource;
+    if(currentConditions["conditions"].toLowerCase().includes("rain")){
+        img.src = rainIcon;
+    }
+    else if(currentConditions["conditions"].toLowerCase().includes("overcast")){
+        img.src = cloudyIcon;
+    }
+    else{
+        img.src=imgSource;
+    }
     divCurrentTemp.classList.add("current-temp");
     h2RealTemp.classList.add("real-temp");
     h4feelsLikeTemp.classList.add("feels-like-temp");

@@ -1,4 +1,9 @@
 import imgSource from "../assets/icons/weather.svg";
+import cloudyIcon from "../assets/icons/cloudy.svg";
+import rainIcon from "../assets/icons/cloudy-rain.svg";
+import thunderIcon from "../assets/icons/thunder.svg";
+import windyIcon from "../assets/icons/windy.svg";
+import snowIcon from "../assets/icons/snowfall.svg";
 
 export default function getDateWeatherComponent(dateConditions){
     const divDateWeather = document.createElement("div");
@@ -13,7 +18,16 @@ export default function getDateWeatherComponent(dateConditions){
 
     divDateWeather.classList.add("date-weather");
     h4Date.classList.add("date");
-    img.src = imgSource;
+    if(dateConditions["conditions"].toLowerCase().includes("rain")){
+        img.src = rainIcon;
+    }
+    else if(dateConditions["conditions"].toLowerCase().includes("overcast")){
+        img.src = cloudyIcon;
+    }
+    else{
+        img.src = imgSource;
+    }
+    
     divSecondary.classList.add("secondary");
     divMinMaxTemps.classList.add("minmax-temps");
     h4MinTemp.classList.add("min-temp");
@@ -22,8 +36,8 @@ export default function getDateWeatherComponent(dateConditions){
     h4WindSpeed.classList.add("wind-speed");
 
     h4Date.innerText = dateConditions["datetime"];
-    h4MinTemp.innerText = dateConditions["tempmin"];
-    h4MaxTemp.innerText = dateConditions["tempmax"];
+    h4MinTemp.innerText = dateConditions["tempmin"].toFixed(1);
+    h4MaxTemp.innerText = dateConditions["tempmax"].toFixed(1);
     h4Conditions.innerText = dateConditions["conditions"];
     h4WindSpeed.innerText = dateConditions["windspeed"];
     divMinMaxTemps.append(h4MinTemp, h4MaxTemp);
