@@ -2,6 +2,7 @@ import "./style.css"
 import {API_KEY} from "./config.js"
 import getCurrentWeatherComponent from "./components/currentWeatherComponent.js";
 import getFutureWeatherComponent from "./components/futureWeatherComponent.js";
+import getWeatherComponent from "./components/weatherComponent.js";
 
 const search_weather_button = document.querySelector("#search-weather");
 const weather_form = document.querySelector("form");
@@ -18,15 +19,15 @@ async function getWeatherData(location, unit_group){
     });
     console.log(searchParams.toString());
     const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?` + searchParams.toString())
-    const data = await response.json();
-    
+    let data;
+    if(response.ok){
+        data = await response.json();   
+    }
     return data;
 }
 
-async function updateWeatherContent(data){
-    divWeatherContent.innerHTML = "";
-    divWeatherContent.append(getCurrentWeatherComponent(data["currentConditions"]));
-    divWeatherContent.append(getFutureWeatherComponent(data["days"]));
+function updateWeatherContent(data){
+    divWeatherContent.innerHTML = getWeatherComponent(data).innerHTML;
 }
 
 
@@ -34,7 +35,7 @@ async function updateWeatherContent(data){
 search_weather_button.addEventListener("click",(e) => {
     e.preventDefault();
     if(weather_form.checkValidity()){
-        getWeatherData(location_input.value, "metric").then((data) => updateWeatherContent(data));
+        getWeatherData(location_input.value, units_input.checked ? "metric" : "us").then((data) => updateWeatherContent(data));
     }
     weather_form.reportValidity();
 });

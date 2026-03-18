@@ -22,9 +22,9 @@ export default function getCurrentWeatherComponent(currentConditions){
     h3WindSpeed.classList.add("wind-speed");
 
     h2RealTemp.innerText = currentConditions["temp"];
-    h4feelsLikeTemp.innerText = currentConditions["feelslike"];
+    h4feelsLikeTemp.innerText = `Feels like: ${currentConditions["feelslike"]}`;
     h3Conditions.innerText = currentConditions["conditions"];
-    h3WindSpeed.innerText = currentConditions["windspeed"];
+    h3WindSpeed.innerText = `Wind speed: ${currentConditions["windspeed"]}`;
 
     divCurrentTemp.append(h2RealTemp, h4feelsLikeTemp);
     divMainData.append(img, divCurrentTemp);
