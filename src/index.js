@@ -9,6 +9,7 @@ const weather_form = document.querySelector("form");
 const location_input = document.querySelector("#location");
 const units_input = document.querySelector("#unit-metric");
 const divWeatherContent = document.querySelector(".weather-content");
+const inputLocation = document.querySelector("input#location");
 
 async function getWeatherData(location, unit_group){
     const searchParams = new URLSearchParams({
@@ -31,11 +32,21 @@ function updateWeatherContent(data){
 }
 
 
-
 search_weather_button.addEventListener("click",(e) => {
     e.preventDefault();
     if(weather_form.checkValidity()){
-        getWeatherData(location_input.value, units_input.checked ? "metric" : "us").then((data) => updateWeatherContent(data));
+        getWeatherData(location_input.value, units_input.checked ? "metric" : "us").then((data) => 
+            {
+                updateWeatherContent(data);
+                localStorage.setItem("recentLocation", JSON.stringify(data));
+            });
     }
     weather_form.reportValidity();
+});
+
+document.addEventListener("DOMContentLoaded", (e) => {
+    if(localStorage.getItem("recentLocation")){
+        updateWeatherContent(JSON.parse(localStorage.getItem("recentLocation")));
+        inputLocation.value = JSON.parse(localStorage.getItem("recentLocation"))["address"]
+    } 
 });
