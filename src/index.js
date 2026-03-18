@@ -1,6 +1,11 @@
 import "./style.css"
 import {API_KEY} from "./config.js"
 
+const search_weather_button = document.querySelector("#search-weather");
+const weather_form = document.querySelector("form");
+const location_input = document.querySelector("#location");
+const units_input = document.querySelector("#unit-metric");
+
 async function getWeatherData(location, unit_group){
     const searchParams = new URLSearchParams({
         key: API_KEY,
@@ -14,4 +19,10 @@ async function getWeatherData(location, unit_group){
     console.log(data);
 }
 
-getWeatherData("Sofia", "metric");
+search_weather_button.addEventListener("click",(e) => {
+    e.preventDefault();
+    if(weather_form.checkValidity()){
+        getWeatherData(location_input.value, units_input.checked ? "metric" : "us");
+    }
+    weather_form.reportValidity();
+});
