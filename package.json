@@ -2,13 +2,13 @@
   "name": "webpack-template",
   "version": "1.0.0",
   "description": "",
-  "homepage": "https://github.com/alexanderkalchev/webpack-template#readme",
+  "homepage": "https://github.com/alexanderkalchev/weather-app#readme",
   "bugs": {
-    "url": "https://github.com/alexanderkalchev/webpack-template/issues"
+    "url": "https://github.com/alexanderkalchev/weather-app/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alexanderkalchev/webpack-template.git"
+    "url": "git+https://https://github.com/alexanderkalchev/weather-app.git"
   },
   "license": "ISC",
   "author": "Aleksandar Kalchev",
